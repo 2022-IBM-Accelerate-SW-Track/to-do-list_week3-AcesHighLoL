@@ -16,7 +16,19 @@ afterEach(() => {
   container = null;
 });
 
+test('test that App component renders Task', () => {
+  render(<App />);
+  const inputTask = screen.getByRole('textbox', {name: /Add New Item/i});
+  const inputDate = screen.getByRole('textbox', {name: /Due Date/i});
+  const element = screen.getByRole('button', {name: /Add/i});
+  const dueDate = "07/20/2023";
+  fireEvent.change(inputTask, { target: { value: "Get a job at IBM"}});
+  fireEvent.change(inputDate, { target: { value: dueDate}});
+  fireEvent.click(element);
 
+  let check = screen.getAllByText(/Get a job at IBM/i);
+  expect(check.length).toBe(1);
+ });
 
 
  test('test that App component doesn\'t render dupicate Task', () => {
